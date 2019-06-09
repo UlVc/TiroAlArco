@@ -1,24 +1,29 @@
-class player(object):
+import SpriteSheet
+
+class Player(object):
     def __init__(self, x, y, width, height):
         self.x = x
         self.y = y
         self. width = width
         self.height = height
         self.velocity = 5
-        self.isJump = False
-        self.jumpCount = 10
         self.left = False
         self.right = False
-        self.walkCount = 0
+        self.walk_count = 0
 
-    def draw(self, win):
-        if self.walkCount + 1 >= 27:
-            self.walkCount = 0
+    def draw(self, screen):
+        sprite_sheet = SpriteSheet.SpriteSheet('images/sprites/RainbowIslandsCharacter.png', 7, 4)
+        walk_left = [0, 1, 2, 3, 4]
+        walk_right = [8, 9, 10, 11, 12]
+        idle = 17
+
+        if self.walk_count + 1 >= 11:
+            self.walk_count = 0
         if self.left:
-            win.blit(walkLeft[self.walkCount // 3], (self.x, self.y)) # // Excludes the remainder 
-            self.walkCount += 1
+            sprite_sheet.draw(screen, walk_left[self.walk_count // 3], self.x, self.y)
+            self.walk_count += 1
         elif self.right:
-            win.blit(walkRight[self.walkCount // 3], (self.x, self.y))
-            self.walkCount += 1
+            sprite_sheet.draw(screen, walk_right[self.walk_count // 3], self.x, self.y)
+            self.walk_count += 1
         else:
-            win.blit(char, (self.x, self.y))
+            sprite_sheet.draw(screen, idle, self.x, self.y)
