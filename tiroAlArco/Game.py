@@ -9,6 +9,7 @@ pygame.init()
 
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
+GROUND_X_POSITION = 810
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -19,7 +20,7 @@ walk_left_player = [3, 4, 5]
 walk_right_player = [6, 7, 8]
 idle_player = 1
 
-player = Player.Player(walk_left_player, walk_right_player, idle_player, 15, 810, 64, 64, 'images/sprites/Saitama.png', 3, 4)
+player = Player.Player(walk_left_player, walk_right_player, idle_player, 15, GROUND_X_POSITION, 64, 64, 'images/sprites/Saitama.png', 3, 4)
 projectile = Projectile.projectile('images/sprites/fire_ball.png')
 
 radio = 10
@@ -62,11 +63,29 @@ def movements():
         player.left = False
         player.walk_count = 0
 
+    if not(player.is_jumping):
+        if keys[pygame.K_w]:
+            player.is_jumping = True
+            right = False
+            left = False
+            walkCount = 0
+    else:
+        if player.jump_count >= -10:
+            neg = 1
+            if player.jump_count < 0:
+                neg = -1
+            player.y -= (player.jump_count ** 2) * 0.5 * neg
+            player.jump_count -= 1
+        else:
+            player.is_jumping = False
+            player.jump_count = 10
+
 # Main loop
 lock_shoot = True
 shoot_guide = True
 space_key = False
 x_pos = 0
+y_pos = 0
 while 1:
     clock.tick(30)
 
@@ -96,16 +115,17 @@ while 1:
             shoot_guide = False
             lock_shoot = False
             x_pos = player.x
+            y_pos = player.y
 
     vx0 = v0 * math.cos(math.radians(ang))
     vy = a*t - v0*math.sin(math.radians(ang))
 
     if space_key: # Projectile motion
-        y = player.y - (vy0*t) + ((.5*a) * (t**2))
+        y = y_pos - (vy0*t) + ((.5*a) * (t**2))
         x = x_pos + radio + vx0*t
         t += dt
-        if y > player.y + 60:
-            y = player.y + 60
+        if y > GROUND_X_POSITION:
+            y = GROUND_X_POSITION
             t = 0
             space_key = False
             lock_shoot = True

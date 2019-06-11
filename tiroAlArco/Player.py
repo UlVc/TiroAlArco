@@ -16,6 +16,8 @@ class Player(object):
         self.walk_left = walk_left
         self.walk_right = walk_right
         self.idle = idle
+        self.is_jumping = False
+        self.jump_count = 10
 
     def draw(self, screen):
         sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows)
