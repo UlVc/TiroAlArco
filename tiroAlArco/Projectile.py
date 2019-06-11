@@ -6,16 +6,16 @@ class projectile(object):
     def __init__(self, image):
         self.image = image
 
-    def draw(self, screen, x, y, facing):
+    def draw(self, screen, x, y, facing, angle):
         x += 20
         sprite_sheet = SpriteSheet.SpriteSheet(self.image, 8, 8)
         left = [0]
         right = [32]
 
         if facing > 0:
-            sprite_sheet.draw(screen, right[0], x, y)
+            sprite_sheet.draw_rotated(screen, right[0], x, y, angle)
         else:
-            sprite_sheet.draw(screen, left[0], x, y)
+            sprite_sheet.draw_rotated(screen, right[0], x, y, angle)
 
     def draw_guide(self, screen, color, x, y, ang, v0):
         x += 30

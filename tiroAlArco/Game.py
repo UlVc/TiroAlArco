@@ -41,7 +41,7 @@ def redraw_screen():
 
     player.draw(screen)
     
-    projectile.draw(screen, x, y, facing)
+    projectile.draw(screen, x, y, facing, ang)
 
     if player.x == x or (x + 5) == player.x or (x - 5) == player.x:
         projectile.draw_guide(screen, (0, 0, 0), x, y, ang, v0)
