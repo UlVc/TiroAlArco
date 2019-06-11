@@ -3,19 +3,19 @@ import SpriteSheet
 import math
 
 class projectile(object):
-    def __init__(self, image):
+    def __init__(self, image, columns, rows):
         self.image = image
+        self.columns = columns
+        self.rows = rows
+        self.draw_projectile = True
 
-    def draw(self, screen, x, y, facing, angle):
+    def draw(self, screen, x, y, angle):
         x += 20
-        sprite_sheet = SpriteSheet.SpriteSheet(self.image, 8, 8)
+        sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows)
         left = [0]
         right = [32]
 
-        if facing > 0:
-            sprite_sheet.draw_rotated(screen, right[0], x, y, angle)
-        else:
-            sprite_sheet.draw_rotated(screen, right[0], x, y, angle)
+        sprite_sheet.draw_rotated(screen, right[0], x, y, angle)
 
     def draw_guide(self, screen, color, x, y, ang, v0):
         x += 30

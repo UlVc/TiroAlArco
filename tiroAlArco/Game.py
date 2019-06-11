@@ -1,15 +1,23 @@
 # -*- coding: utf-8 -*-
+# 
+def printos(surface, text, x, y, color, font):
+    text_in_lines = text.split('\n')
+    for line in text_in_lines:
+        new = font.render(line, 1, color)
+        surface.blit(new, (x, y))
+        y += new.get_height()
 
 import pygame
 import Player
 import Projectile
 import math
+import ProjectileMotion as pm
 
 pygame.init()
 
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
-GROUND_X_POSITION = 810
+GROUND_POSITION = 810
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
@@ -19,37 +27,27 @@ bg = pygame.image.load('images/background/background.jpg')
 walk_left_player = [3, 4, 5]
 walk_right_player = [6, 7, 8]
 idle_player = 1
+FORCE_PLAYER = 100
+VELOCITY_PLAYER = 5
 
-player = Player.Player(walk_left_player, walk_right_player, idle_player, 15, GROUND_X_POSITION, 64, 64, 'images/sprites/Saitama.png', 3, 4)
-projectile = Projectile.projectile('images/sprites/fire_ball.png')
-
-radio = 10
-
-t = 0.0
-dt = 0.5
-     
-v0 = 25.0
-a = 1.0
-ang = 45.0
-     
-vx = 0
-vy = 0
+player = Player.Player(walk_left_player, walk_right_player, idle_player, 15, GROUND_POSITION, 64, 64, FORCE_PLAYER, VELOCITY_PLAYER, 'images/sprites/Saitama.png', 3, 4)
+projectile = Projectile.projectile('images/sprites/fire_ball.png', 8, 8)
+projectile_motion = pm.projectile_motion(0.0, 0.5, 25.0, 1.0, 45.0, 0, 0, GROUND_POSITION)
 
 clock = pygame.time.Clock()
 
 def redraw_screen():
     screen.blit(bg, (0, 0))
 
-    player.draw(screen)
-    
-    projectile.draw(screen, x, y, facing, ang)
+    #printos(screen, "x = %d y = %d ang = %d v0 = %d vx = %d vy = %d"%(x, y, ang, v0, vx0, vy), 0, 0, (0, 0, 0), pygame.font.Font(None, 30) )
 
-    if player.x == x or (x + 5) == player.x or (x - 5) == player.x:
-        projectile.draw_guide(screen, (0, 0, 0), x, y, ang, v0)
+    projectile_motion.draw_motion(screen, projectile, player)
+
+    player.draw(screen)
 
     pygame.display.update()
 
-def movements():
+def movements(player):
     if keys[pygame.K_a] and player.x > player.velocity:
         player.x -= player.velocity
         player.left = True
@@ -81,11 +79,6 @@ def movements():
             player.jump_count = 10
 
 # Main loop
-lock_shoot = True
-shoot_guide = True
-space_key = False
-x_pos = 0
-y_pos = 0
 while 1:
     clock.tick(30)
 
@@ -98,44 +91,8 @@ while 1:
 
     keys = pygame.key.get_pressed()
 
-    if lock_shoot: # Lock the arrow keys when the projectile is launched
-        if keys[pygame.K_LEFT]:
-            ang += 1
-        if keys[pygame.K_RIGHT]: 
-            ang -= 1
-            if(ang < 0):
-                ang = 0
-        if keys[pygame.K_UP] and v0 < 100: 
-            v0 += 1
-        if keys[pygame.K_DOWN] and v0 > 1:
-            v0 -= 1
-        if keys[pygame.K_SPACE]:
-            space_key = True
-            vy0 = v0 * math.sin(math.radians(ang))
-            shoot_guide = False
-            lock_shoot = False
-            x_pos = player.x
-            y_pos = player.y
+    projectile_motion.calculate_motion(keys, player)
 
-    vx0 = v0 * math.cos(math.radians(ang))
-    vy = a*t - v0*math.sin(math.radians(ang))
-
-    if space_key: # Projectile motion
-        y = y_pos - (vy0*t) + ((.5*a) * (t**2))
-        x = x_pos + radio + vx0*t
-        t += dt
-        if y > GROUND_X_POSITION:
-            y = GROUND_X_POSITION
-            t = 0
-            space_key = False
-            lock_shoot = True
-
-    # Direction of the projectile:
-    if ang > 90:
-        facing = -1
-    else:
-        facing = 1
-
-    movements()
+    movements(player)
 
     redraw_screen()

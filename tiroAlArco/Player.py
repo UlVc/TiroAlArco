@@ -1,21 +1,22 @@
 import SpriteSheet
 
 class Player(object):
-    def __init__(self, walk_left, walk_right, idle, x, y, width, height, image, columns, rows):
-        self.x = x
-        self.y = y
-        self. width = width
-        self.height = height
-        self.velocity = 5
-        self.left = False
-        self.right = False
-        self.walk_count = 0
-        self.image = image
-        self.columns = columns
-        self.rows = rows
+    def __init__(self, walk_left, walk_right, idle, x, y, width, height, force, velocity, image, columns, rows):
         self.walk_left = walk_left
         self.walk_right = walk_right
         self.idle = idle
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+        self.force = force
+        self.velocity = velocity
+        self.image = image
+        self.columns = columns
+        self.rows = rows
+        self.left = False
+        self.right = False
+        self.walk_count = 0
         self.is_jumping = False
         self.jump_count = 10
 
