@@ -9,6 +9,7 @@ Curso de Pygame: https://www.youtube.com/playlist?list=PLzMcBGfZo4-lp3jAExUCewBf
 Curso de Onlinegaming: https://www.youtube.com/playlist?list=PLzMcBGfZo4-kR7Rh-7JCVDN8lm3Utumvq
 
 - How to run the game
+
 You must be in the TiroAlArco directory, and then execute the following command:
 
 python tiroAlArco/Game.py
