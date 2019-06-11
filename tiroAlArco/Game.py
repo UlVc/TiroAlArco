@@ -14,10 +14,13 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 pygame.display.set_caption("Tiro al arco")
 bg = pygame.image.load('images/background/background.jpg')
-arrow = pygame.image.load('images/sprites/arrow.jpg')
 
-player = Player.Player(15, 810, 64, 64)
-projectile = Projectile.projectile('images/sprites/arrow.png')
+walk_left_player = [3, 4, 5]
+walk_right_player = [6, 7, 8]
+idle_player = 1
+
+player = Player.Player(walk_left_player, walk_right_player, idle_player, 15, 810, 64, 64, 'images/sprites/Saitama.png', 3, 4)
+projectile = Projectile.projectile('images/sprites/fire_ball.png')
 
 radio = 10
 
@@ -62,6 +65,7 @@ def movements():
 
 # Main loop
 lock_shoot = False
+guide = True
 while 1:
     clock.tick(30)
 
@@ -74,19 +78,20 @@ while 1:
 
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_LEFT]:
         ang += 1
-    if keys[pygame.K_DOWN]: 
+    if keys[pygame.K_RIGHT]: 
         ang -= 1
         if(ang < 0):
             ang = 0
-    if keys[pygame.K_RIGHT] and v0 < 100: 
+    if keys[pygame.K_UP] and v0 < 100: 
         v0 += 1
-    if keys[pygame.K_LEFT] and v0 > 1:
+    if keys[pygame.K_DOWN] and v0 > 1:
         v0 -= 1
     if keys[pygame.K_SPACE]:
         lock1 = True
         vy0 = v0 * math.sin(math.radians(ang))
+        guide = False
 
     vx0 = v0 * math.cos(math.radians(ang))
     vy = a*t - v0*math.sin(math.radians(ang))
@@ -100,7 +105,7 @@ while 1:
             t = 0
             lock1 = False
 
-    # Direction of the arrow:
+    # Direction of the projectile:
     if ang > 90:
         facing = -1
     else:
@@ -108,4 +113,13 @@ while 1:
 
     movements()
 
-    redraw_screen()
+    screen.blit(bg, (0, 0))
+
+    player.draw(screen)
+    
+    projectile.draw(screen, x, y, facing)
+
+    if player.x == x or (x + 5) == player.x or (x - 5) == player.x:
+        projectile.draw_guide(screen, (0, 0, 0), x, y, ang, v0)
+
+    pygame.display.update()

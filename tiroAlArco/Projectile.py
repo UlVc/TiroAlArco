@@ -7,10 +7,10 @@ class projectile(object):
         self.image = image
 
     def draw(self, screen, x, y, facing):
-        y = y - 140
-        sprite_sheet = SpriteSheet.SpriteSheet(self.image, 4, 1)
-        left = [1]
-        right = [3]
+        x += 20
+        sprite_sheet = SpriteSheet.SpriteSheet(self.image, 8, 8)
+        left = [0]
+        right = [32]
 
         if facing > 0:
             sprite_sheet.draw(screen, right[0], x, y)
@@ -18,6 +18,8 @@ class projectile(object):
             sprite_sheet.draw(screen, left[0], x, y)
 
     def draw_guide(self, screen, color, x, y, ang, v0):
+        x += 30
+        y += 40
         w, z = x + v0 * 10*math.cos(math.radians(ang)), y - v0*10*math.sin(math.radians(ang))
         x, y, w, z = int(x), int(y), int(w), int(z)
 
