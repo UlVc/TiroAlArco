@@ -64,7 +64,7 @@ def movements():
         player.walk_count = 0
 
 # Main loop
-lock_shoot = False
+lock_shoot = True
 guide = True
 while 1:
     clock.tick(30)
@@ -78,20 +78,22 @@ while 1:
 
     keys = pygame.key.get_pressed()
 
-    if keys[pygame.K_LEFT]:
-        ang += 1
-    if keys[pygame.K_RIGHT]: 
-        ang -= 1
-        if(ang < 0):
-            ang = 0
-    if keys[pygame.K_UP] and v0 < 100: 
-        v0 += 1
-    if keys[pygame.K_DOWN] and v0 > 1:
-        v0 -= 1
-    if keys[pygame.K_SPACE]:
-        lock1 = True
-        vy0 = v0 * math.sin(math.radians(ang))
-        guide = False
+    if lock_shoot:
+        if keys[pygame.K_LEFT]:
+            ang += 1
+        if keys[pygame.K_RIGHT]: 
+            ang -= 1
+            if(ang < 0):
+                ang = 0
+        if keys[pygame.K_UP] and v0 < 100: 
+            v0 += 1
+        if keys[pygame.K_DOWN] and v0 > 1:
+            v0 -= 1
+        if keys[pygame.K_SPACE]:
+            lock1 = True
+            vy0 = v0 * math.sin(math.radians(ang))
+            guide = False
+            lock_shoot = False
 
     vx0 = v0 * math.cos(math.radians(ang))
     vy = a*t - v0*math.sin(math.radians(ang))
@@ -104,6 +106,7 @@ while 1:
             y = player.y + 60
             t = 0
             lock1 = False
+            lock_shoot = True
 
     # Direction of the projectile:
     if ang > 90:
