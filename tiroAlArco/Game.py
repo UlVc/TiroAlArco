@@ -34,9 +34,6 @@ ang = 45.0
 vx = 0
 vy = 0
 
-lock = True
-lock1 = False
-
 clock = pygame.time.Clock()
 
 def redraw_screen():
@@ -45,7 +42,9 @@ def redraw_screen():
     player.draw(screen)
     
     projectile.draw(screen, x, y, facing)
-    projectile.draw_guide(screen, (0, 0, 0), x, y, ang, v0)
+
+    if player.x == x or (x + 5) == player.x or (x - 5) == player.x:
+        projectile.draw_guide(screen, (0, 0, 0), x, y, ang, v0)
 
     pygame.display.update()
 
@@ -65,7 +64,9 @@ def movements():
 
 # Main loop
 lock_shoot = True
-guide = True
+shoot_guide = True
+space_key = False
+x_pos = 0
 while 1:
     clock.tick(30)
 
@@ -78,7 +79,7 @@ while 1:
 
     keys = pygame.key.get_pressed()
 
-    if lock_shoot:
+    if lock_shoot: # Lock the arrow keys when the projectile is launched
         if keys[pygame.K_LEFT]:
             ang += 1
         if keys[pygame.K_RIGHT]: 
@@ -90,22 +91,23 @@ while 1:
         if keys[pygame.K_DOWN] and v0 > 1:
             v0 -= 1
         if keys[pygame.K_SPACE]:
-            lock1 = True
+            space_key = True
             vy0 = v0 * math.sin(math.radians(ang))
-            guide = False
+            shoot_guide = False
             lock_shoot = False
+            x_pos = player.x
 
     vx0 = v0 * math.cos(math.radians(ang))
     vy = a*t - v0*math.sin(math.radians(ang))
 
-    if lock1:
-        y = (player.y) - (vy0*t) + ((.5*a) * (t**2))
-        x = player.x + radio + vx0*t
+    if space_key: # Projectile motion
+        y = player.y - (vy0*t) + ((.5*a) * (t**2))
+        x = x_pos + radio + vx0*t
         t += dt
         if y > player.y + 60:
             y = player.y + 60
             t = 0
-            lock1 = False
+            space_key = False
             lock_shoot = True
 
     # Direction of the projectile:
@@ -116,13 +118,4 @@ while 1:
 
     movements()
 
-    screen.blit(bg, (0, 0))
-
-    player.draw(screen)
-    
-    projectile.draw(screen, x, y, facing)
-
-    if player.x == x or (x + 5) == player.x or (x - 5) == player.x:
-        projectile.draw_guide(screen, (0, 0, 0), x, y, ang, v0)
-
-    pygame.display.update()
+    redraw_screen()
