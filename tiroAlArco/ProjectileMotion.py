@@ -3,7 +3,7 @@ import Projectile
 import Player
 import math
 
-class projectile_motion(object):
+class ProjectileMotion(object):
     def __init__(self, t, dt, v0, acceleration, angle, vx, vy, GROUND_POSITION):
         self.t = t
         self.dt = dt
