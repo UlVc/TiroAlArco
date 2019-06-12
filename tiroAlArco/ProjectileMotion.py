@@ -34,6 +34,9 @@ class ProjectileMotion(object):
             if keys[pygame.K_DOWN] and self.v0 > 1:
                 self.v0 -= 1
             if keys[pygame.K_SPACE]:
+                pygame.mixer.init()
+                pygame.mixer.music.load('sounds/arrow_release.ogg')
+                pygame.mixer.music.play()
                 self.space_key = True
                 self.vy0 = self.v0 * math.sin(math.radians(self.angle))
                 self.lock_shoot = False

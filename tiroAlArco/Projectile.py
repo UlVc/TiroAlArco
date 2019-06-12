@@ -7,7 +7,6 @@ class projectile(object):
         self.image = image
         self.columns = columns
         self.rows = rows
-        self.draw_projectile = True
 
     def draw(self, screen, x, y, angle):
         x += 20

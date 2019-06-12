@@ -26,6 +26,7 @@ player = Player.Player(walk_left_player, walk_right_player, idle_player, 15, GRO
 projectile = Projectile.projectile('images/sprites/fire_ball.png', 8, 8)
 projectile_motion = pm.ProjectileMotion(0.0, 0.5, 25.0, 1.0, 45.0, 0, 0, GROUND_POSITION)
 
+
 clock = pygame.time.Clock()
 
 def redraw_screen():
