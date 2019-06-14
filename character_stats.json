@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Saitama",
+    "walk_left": [3, 4, 5],
+    "walk_right": [6, 7, 8],
+    "idle": 1,
+    "x": 15,
+    "y": 810,
+    "width": 64,
+    "height": 64,
+    "force": 100,
+    "velocity": 5,
+    "image": "images/sprites/Saitama.png",
+    "columns": 3,
+    "rows": 4
+  },
+  {
+    "name": "Goku",
+    "walk_left": [33, 34, 35, 36, 37, 43],
+    "walk_right": [11, 21],
+    "x": 100,
+    "y": 300,
+    "width": 64,
+    "height": 64,
+    "end": 1400,
+    "image": "images/sprites/goku.png",
+    "columns": 10,
+    "rows": 6
+  }
+]

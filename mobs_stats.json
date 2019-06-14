@@ -1,0 +1,28 @@
+[
+  {
+    "name": "goblin",
+    "walk_left": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43],
+    "walk_right": [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21],
+    "x": 300,
+    "y": 800,
+    "width": 64,
+    "height": 64,
+    "end": 1000,
+    "image": "images/sprites/goblin.png",
+    "columns": 11,
+    "rows": 5
+  },
+  {
+    "name": "zombie",
+    "walk_left": [33, 34, 35, 36, 37, 43],
+    "walk_right": [11, 21],
+    "x": 100,
+    "y": 300,
+    "width": 64,
+    "height": 64,
+    "end": 1400,
+    "image": "images/sprites/goblin.png",
+    "columns": 10,
+    "rows": 6
+  }
+]
