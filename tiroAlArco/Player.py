@@ -52,9 +52,9 @@ class Player(object):
         if not(self.is_jumping):
             if keys[pygame.K_w]:
                 self.is_jumping = True
-                right = False
-                left = False
-                walkCount = 0
+                self.right = False
+                self.left = False
+                self.walkCount = 0
         else:
             if self.jump_count >= -10:
                 neg = 1

@@ -34,7 +34,6 @@ class ProjectileMotion(object):
             if keys[pygame.K_DOWN] and self.v0 > 1:
                 self.v0 -= 1
             if keys[pygame.K_SPACE]:
-                pygame.mixer.init()
                 pygame.mixer.music.load('sounds/arrow_release.wav')
                 pygame.mixer.music.play()
                 self.space_key = True
@@ -55,13 +54,3 @@ class ProjectileMotion(object):
                 self.t = 0
                 self.space_key = False
                 self.lock_shoot = True
-
-    def draw_motion(self, screen, projectile, player):
-        if player.x == self.x or (self.x + 5) == player.x or (self.x - 5) == player.x:
-            projectile.draw_guide(screen, (0, 0, 0), self.x, self.y, self.angle, self.v0)
-            projectile.draw_projectile = False
-        else:
-            projectile.draw_projectile = True
-
-        if projectile.draw_projectile:
-            projectile.draw(screen, self.x, self.y, self.angle)

@@ -5,6 +5,8 @@ import Player
 import Projectile
 import ProjectileMotion as pm
 
+pygame.mixer.pre_init(44100, -16, 2, 2048)
+pygame.mixer.init()
 pygame.init()
 
 SCREEN_WIDTH = 1920
@@ -32,7 +34,15 @@ clock = pygame.time.Clock()
 def redraw_screen():
     screen.blit(bg, (0, 0))
 
-    projectile_motion.draw_motion(screen, projectile, player)
+    if player.x == projectile_motion.x or (projectile_motion.x + 5) == player.x or (projectile_motion.x - 5) == player.x:
+        projectile.draw_guide(screen, (0, 0, 0), projectile_motion.x, projectile_motion.y, projectile_motion.angle, projectile_motion.v0)
+        projectile.draw_projectile = False
+    else:
+        projectile.draw_projectile = True
+
+    if projectile.draw_projectile:
+        projectile.draw(screen, projectile_motion.x, projectile_motion.y, projectile_motion.angle)
+
     player.draw(screen)
 
     pygame.display.update()
