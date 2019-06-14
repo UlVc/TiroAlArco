@@ -33,19 +33,15 @@ player = Player.Player(walk_left_player, walk_right_player, idle_player, 15, GRO
 projectile = Projectile.projectile('images/sprites/fire_ball.png', 8, 8)
 projectile_motion = pm.ProjectileMotion(0.0, 0.5, 25.0, 1.0, 45.0, 0, 0, GROUND_POSITION, 'sounds/arrow_release.wav')
 
-
 clock = pygame.time.Clock()
 
 def redraw_screen():
     screen.blit(bg, (0, 0))
 
-    if (player.x == projectile_motion.x or (projectile_motion.x + 5) == player.x or (projectile_motion.x - 5) == player.x) and (player.y == projectile_motion.y or (projectile_motion.y + 5) == player.y or (projectile_motion.y - 5) == player.y):
+    if (player.x == projectile_motion.x or (projectile_motion.x + 5) == player.x or (projectile_motion.x - 5) == player.x) and not(projectile_motion.shoot):
         projectile.draw_guide(screen, (0, 0, 0), projectile_motion.x, projectile_motion.y, projectile_motion.angle, projectile_motion.v0)
-        projectile.draw_projectile = False
-    else:
-        projectile.draw_projectile = True
 
-    if projectile.draw_projectile:
+    if projectile_motion.shoot:
         projectile.draw(screen, projectile_motion.x, projectile_motion.y, projectile_motion.angle)
 
     player.draw(screen)

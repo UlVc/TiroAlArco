@@ -20,6 +20,7 @@ class ProjectileMotion(object):
         self.y = 0
         self.x_pos = 0
         self.y_pos = 0
+        self.shoot = False
 
     def calculate_motion(self, keys, player):
         self.x = player.x
@@ -42,6 +43,7 @@ class ProjectileMotion(object):
                 pygame.mixer.music.load(self.sound_effect)
                 pygame.mixer.music.play()
                 self.space_key = True
+                self.shoot = True
                 self.vy0 = self.v0 * math.sin(math.radians(self.angle))
                 self.lock_shoot = False
                 self.x_pos = self.x
@@ -59,3 +61,4 @@ class ProjectileMotion(object):
                 self.t = 0
                 self.space_key = False
                 self.lock_shoot = True
+                self.shoot = False
