@@ -1,8 +1,12 @@
 import pygame
 
 class SpriteSheet(object):
-    def __init__(self, image, columns, rows):
+    def __init__(self, image, columns, rows, scale = False):
         self.sheet = pygame.image.load(image)
+
+        if scale:
+            self.sheet = pygame.transform.scale2x(self.sheet)
+            
         self.columns = columns
         self.rows = rows
         self.totalCellCount = columns * rows

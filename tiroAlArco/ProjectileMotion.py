@@ -4,7 +4,7 @@ import Player
 import math
 
 class ProjectileMotion(object):
-    def __init__(self, t, dt, v0, acceleration, angle, vx, vy, GROUND_POSITION):
+    def __init__(self, t, dt, v0, acceleration, angle, vx, vy, GROUND_POSITION, sound_effect):
         self.t = t
         self.dt = dt
         self.v0 = v0
@@ -13,6 +13,7 @@ class ProjectileMotion(object):
         self.vx = vx
         self.vy = vy
         self.GROUND_POSITION = GROUND_POSITION
+        self.sound_effect = sound_effect
         self.lock_shoot = True
         self.space_key = False
         self.x = 0
@@ -34,7 +35,7 @@ class ProjectileMotion(object):
             if keys[pygame.K_DOWN] and self.v0 > 1:
                 self.v0 -= 1
             if keys[pygame.K_SPACE]:
-                pygame.mixer.music.load('sounds/arrow_release.wav')
+                pygame.mixer.music.load(self.sound_effect)
                 pygame.mixer.music.play()
                 self.space_key = True
                 self.vy0 = self.v0 * math.sin(math.radians(self.angle))

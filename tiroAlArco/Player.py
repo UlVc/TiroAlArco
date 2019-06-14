@@ -26,6 +26,7 @@ class Player(object):
 
         if self.walk_count + 1 >= (len(self.walk_left)*2) + 1:
             self.walk_count = 0
+            
         if self.left:
             sprite_sheet.draw(screen, self.walk_left[self.walk_count // 3], self.x, self.y)
             self.walk_count += 1
@@ -35,7 +36,7 @@ class Player(object):
         else:
             sprite_sheet.draw(screen, self.idle, self.x, self.y)
 
-    def movements(self, keys, SCREEN_WIDTH):
+    def move(self, keys, SCREEN_WIDTH):
         if keys[pygame.K_a] and self.x > self.velocity:
             self.x -= self.velocity
             self.left = True
