@@ -34,6 +34,10 @@ class ProjectileMotion(object):
                 self.v0 += 1
             if keys[pygame.K_DOWN] and self.v0 > 1:
                 self.v0 -= 1
+            if keys[pygame.K_LCTRL]:
+                self.angle = 135
+            if keys[pygame.K_RCTRL]:
+                self.angle = 45
             if keys[pygame.K_SPACE]:
                 pygame.mixer.music.load(self.sound_effect)
                 pygame.mixer.music.play()
