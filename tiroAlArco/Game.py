@@ -34,7 +34,7 @@ clock = pygame.time.Clock()
 def redraw_screen():
     screen.blit(bg, (0, 0))
 
-    if player.x == projectile_motion.x or (projectile_motion.x + 5) == player.x or (projectile_motion.x - 5) == player.x:
+    if (player.x == projectile_motion.x or (projectile_motion.x + 5) == player.x or (projectile_motion.x - 5) == player.x) and player.y == projectile_motion.y:
         projectile.draw_guide(screen, (0, 0, 0), projectile_motion.x, projectile_motion.y, projectile_motion.angle, projectile_motion.v0)
         projectile.draw_projectile = False
     else:
