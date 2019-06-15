@@ -1,28 +1,21 @@
 import SpriteSheet
 import pygame
+from Abstract import Abstract
 
-class Player(object):
+class Player(Abstract):
     def __init__(self, walk_left, walk_right, idle, x, y, width, height, force, velocity, image, columns, rows):
-        self.walk_left = walk_left
-        self.walk_right = walk_right
+        Abstract.__init__(self, walk_left, walk_right, x, y, width, height, image, columns, rows)
         self.idle = idle
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
         self.force = force
         self.velocity = velocity
-        self.image = image
-        self.columns = columns
-        self.rows = rows
         self.left = False
         self.right = False
         self.walk_count = 0
         self.is_jumping = False
         self.jump_count = 10
 
-    def draw(self, screen, rotated=False):
-        sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows, rotated)
+    def draw(self, screen, scale2x=False):
+        sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows, scale2x)
 
         if self.walk_count + 1 >= (len(self.walk_left)*2) + 1:
             self.walk_count = 0

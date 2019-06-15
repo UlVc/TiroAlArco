@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import Game
+from redraw_screen import Game
 
 print('Choose your character:')
 print('Option 1: Saitama')

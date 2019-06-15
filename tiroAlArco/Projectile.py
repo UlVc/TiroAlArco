@@ -2,7 +2,7 @@ import pygame
 import SpriteSheet
 import math
 
-class projectile(object):
+class Projectile(object):
     def __init__(self, image, columns, rows):
         self.image = image
         self.columns = columns

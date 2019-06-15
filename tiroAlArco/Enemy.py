@@ -1,18 +1,11 @@
 import pygame
 import SpriteSheet
+from Abstract import Abstract
 
-class enemy(object):
-    def __init__(self, walk_left, walk_right, x, y, width, height, end, image, columns, rows):
-        self.walk_left = walk_left
-        self.walk_right = walk_right
-        self.x = x
-        self.y = y
-        self.width = width
-        self.height = height
+class Enemy(Abstract):
+    def __init__(self, walk_left, walk_right, x, y, width, height, image, columns, rows, end):
+        Abstract.__init__(self, walk_left, walk_right, x, y, width, height, image, columns, rows)
         self.end = end
-        self.image = image
-        self.columns = columns
-        self.rows = rows
         self.path = [self.x, self.end]
         self.walk_count = 0
         self.velocity = 3
