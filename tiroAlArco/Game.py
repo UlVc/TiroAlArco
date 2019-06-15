@@ -5,7 +5,7 @@ import json
 import Player
 import Projectile
 import ProjectileMotion as pm
-import Enemy
+import Mob
 
 pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.mixer.init()
@@ -17,14 +17,14 @@ with open('mobs_stats.json') as file_mobs, open('character_stats.json') as file_
 
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
-GROUND_POSITION = 810
+GROUND_POSITION = 840
 
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
 pygame.display.set_caption("Tiro al arco")
 bg = pygame.image.load('images/background/background.jpg')
 
-enemy = Enemy.Enemy(data_enemies[0]['walk_left'], data_enemies[0]['walk_right'], data_enemies[0]['x'], data_enemies[0]['y'], 
+enemy = Mob.Mob(data_enemies[0]['walk_left'], data_enemies[0]['walk_right'], data_enemies[0]['x'], data_enemies[0]['y'], 
                     data_enemies[0]['width'], data_enemies[0]['height'], data_enemies[0]['image'], data_enemies[0]['columns'], 
                     data_enemies[0]['rows'], data_enemies[0]['end'])
 player = Player.Player(data_characters[0]['walk_left'], data_characters[0]['walk_right'], data_characters[0]['idle'], data_characters[0]['x'], 

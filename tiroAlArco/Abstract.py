@@ -9,3 +9,9 @@ class Abstract(object):
         self.image = image
         self.columns = columns
         self.rows = rows
+
+    def draw(self):
+        pass
+
+    def move(self):
+        pass

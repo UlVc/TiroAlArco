@@ -2,7 +2,7 @@ import pygame
 import SpriteSheet
 from Abstract import Abstract
 
-class Enemy(Abstract):
+class Mob(Abstract):
     def __init__(self, walk_left, walk_right, x, y, width, height, image, columns, rows, end):
         Abstract.__init__(self, walk_left, walk_right, x, y, width, height, image, columns, rows)
         self.end = end
