@@ -16,15 +16,17 @@
   },
   {
     "name": "Goku",
-    "walk_left": [33, 34, 35, 36, 37, 43],
-    "walk_right": [11, 21],
-    "x": 100,
-    "y": 300,
+    "walk_left": [9, 10, 11],
+    "walk_right": [6, 7, 8],
+    "idle": 2,
+    "x": 15,
+    "y": 710,
     "width": 64,
     "height": 64,
-    "end": 1400,
-    "image": "images/sprites/goku.png",
-    "columns": 10,
+    "force": 200,
+    "velocity": 10,
+    "image": "images/sprites/Goku.png",
+    "columns": 18,
     "rows": 6
   }
 ]

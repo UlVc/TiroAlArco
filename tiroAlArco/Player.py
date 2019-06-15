@@ -21,8 +21,8 @@ class Player(object):
         self.is_jumping = False
         self.jump_count = 10
 
-    def draw(self, screen):
-        sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows)
+    def draw(self, screen, rotated=False):
+        sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows, rotated)
 
         if self.walk_count + 1 >= (len(self.walk_left)*2) + 1:
             self.walk_count = 0

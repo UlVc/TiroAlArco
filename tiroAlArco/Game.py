@@ -27,9 +27,9 @@ bg = pygame.image.load('images/background/background.jpg')
 enemy = Enemy.enemy(data_enemies[0]['walk_left'], data_enemies[0]['walk_right'], data_enemies[0]['x'], data_enemies[0]['y'], 
                     data_enemies[0]['width'], data_enemies[0]['height'], data_enemies[0]['end'], data_enemies[0]['image'], 
                     data_enemies[0]['columns'], data_enemies[0]['rows'])
-player = Player.Player(data_characters[0]['walk_left'], data_characters[0]['walk_right'], data_characters[0]['idle'], data_characters[0]['x'], 
-                       data_characters[0]['y'], data_characters[0]['width'], data_characters[0]['height'], data_characters[0]['force'], 
-                       data_characters[0]['velocity'], data_characters[0]['image'], data_characters[0]['columns'], data_characters[0]['rows'])
+player = Player.Player(data_characters[1]['walk_left'], data_characters[1]['walk_right'], data_characters[1]['idle'], data_characters[1]['x'], 
+                       data_characters[1]['y'], data_characters[1]['width'], data_characters[1]['height'], data_characters[1]['force'], 
+                       data_characters[1]['velocity'], data_characters[1]['image'], data_characters[1]['columns'], data_characters[1]['rows'])
 projectile = Projectile.projectile('images/sprites/fire_ball.png', 8, 8)
 projectile_motion = pm.ProjectileMotion(0.0, 0.5, 25.0, 1.0, 45.0, 0, 0, GROUND_POSITION, 'sounds/arrow_release.wav')
 
@@ -39,12 +39,12 @@ def redraw_screen():
     screen.blit(bg, (0, 0))
 
     if (player.x == projectile_motion.x or (projectile_motion.x + 5) == player.x or (projectile_motion.x - 5) == player.x) and not(projectile_motion.shoot):
-        projectile.draw_guide(screen, (0, 0, 0), projectile_motion.x, projectile_motion.y, projectile_motion.angle, projectile_motion.v0)
+        projectile.draw_guide(screen, (0, 0, 0), player.x, player.y, projectile_motion.angle, projectile_motion.v0)
 
     if projectile_motion.shoot:
         projectile.draw(screen, projectile_motion.x, projectile_motion.y, projectile_motion.angle)
 
-    player.draw(screen)
+    player.draw(screen, True)
     enemy.draw(screen)
 
     pygame.display.update()
