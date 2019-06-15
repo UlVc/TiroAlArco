@@ -1,7 +1,7 @@
 import pygame
 
 class SpriteSheet(object):
-    def __init__(self, image, columns, rows, scale = False):
+    def __init__(self, image, columns, rows, scale=False):
         self.sheet = pygame.image.load(image)
 
         if scale:
