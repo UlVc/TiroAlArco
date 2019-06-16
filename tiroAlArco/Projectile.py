@@ -8,14 +8,14 @@ class Projectile(object):
         self.columns = columns
         self.rows = rows
 
-    def draw(self, screen, x, y, angle, vx, vy):
+    def draw(self, screen, (x, y), angle, vx, vy):
         x += 20
         sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows)
         intern_angle = math.atan2(vy, vx) * (180.0/math.pi)
         
-        sprite_sheet.draw_rotated(screen, 32, x, y, intern_angle)
+        sprite_sheet.draw_rotated(screen, 32, (x, y), intern_angle)
 
-    def draw_guide(self, screen, color, x, y, ang, v0):
+    def draw_guide(self, screen, color, (x, y), ang, v0):
         x += 30
         y += 40
         w, z = x + v0 * 10*math.cos(math.radians(ang)), y - v0*10*math.sin(math.radians(ang))

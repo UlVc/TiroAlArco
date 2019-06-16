@@ -3,10 +3,10 @@ import SpriteSheet
 from Abstract import Abstract
 
 class Mob(Abstract):
-    def __init__(self, walk_left, walk_right, x, y, width, height, image, columns, rows, end):
-        Abstract.__init__(self, walk_left, walk_right, x, y, width, height, image, columns, rows)
+    def __init__(self, walk_left, walk_right, (x, y), image, columns, rows, end):
+        Abstract.__init__(self, walk_left, walk_right, (x, y), image, columns, rows)
         self.end = end
-        self.path = [self.x, self.end]
+        self.path = [x, self.end]
         self.walk_count = 0
         self.velocity = 3
 
@@ -19,10 +19,10 @@ class Mob(Abstract):
             self.walk_count = 0
 
         if self.velocity > 0: 
-            sprite_sheet.draw(screen, self.walk_right[self.walk_count // 3], self.x, self.y)
+            sprite_sheet.draw(screen, self.walk_right[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
         else:
-            sprite_sheet.draw(screen, self.walk_left[self.walk_count // 3], self.x, self.y)
+            sprite_sheet.draw(screen, self.walk_left[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
 
     def move(self):

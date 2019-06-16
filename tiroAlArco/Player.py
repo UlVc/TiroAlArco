@@ -3,8 +3,9 @@ import pygame
 from Abstract import Abstract
 
 class Player(Abstract):
-    def __init__(self, walk_left, walk_right, idle, x, y, width, height, force, velocity, image, columns, rows):
-        Abstract.__init__(self, walk_left, walk_right, x, y, width, height, image, columns, rows)
+    def __init__(self, walk_left, walk_right, idle, (x, y), width, force, velocity, image, columns, rows):
+        Abstract.__init__(self, walk_left, walk_right, (x, y), image, columns, rows)
+        self.width = width
         self.idle = idle
         self.force = force
         self.velocity = velocity
@@ -21,13 +22,13 @@ class Player(Abstract):
             self.walk_count = 0
             
         if self.left:
-            sprite_sheet.draw(screen, self.walk_left[self.walk_count // 3], self.x, self.y)
+            sprite_sheet.draw(screen, self.walk_left[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
         elif self.right:
-            sprite_sheet.draw(screen, self.walk_right[self.walk_count // 3], self.x, self.y)
+            sprite_sheet.draw(screen, self.walk_right[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
         else:
-            sprite_sheet.draw(screen, self.idle, self.x, self.y)
+            sprite_sheet.draw(screen, self.idle, (self.x, self.y))
 
     def move(self, keys, SCREEN_WIDTH):
         if keys[pygame.K_a] and self.x > self.velocity:
