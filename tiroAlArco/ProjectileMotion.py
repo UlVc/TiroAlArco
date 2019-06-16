@@ -58,6 +58,10 @@ class ProjectileMotion(object):
             self.y = self.y_pos - (self.vy0*self.t) + ((.5*self.acceleration) * (self.t**2))
             self.x = self.x_pos + self.vx*self.t
             self.t += self.dt
+
+            if self.x > 2600 or self.x < -600:
+                self.y = self.GROUND_POSITION + 1
+
             if self.y > self.GROUND_POSITION:
                 self.y = self.GROUND_POSITION
                 self.t = 0
