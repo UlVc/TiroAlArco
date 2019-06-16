@@ -1,10 +1,12 @@
 import pygame
 import Projectile
 import Player
+import SpriteSheet
 import math
 
 class ProjectileMotion(object):
-    def __init__(self, t, dt, v0, acceleration, angle, vx, vy, GROUND_POSITION, sound_effect):
+    def __init__(self, screen, t, dt, v0, acceleration, angle, vx, vy, GROUND_POSITION, sound_effect):
+        self.screen = screen
         self.t = t
         self.dt = dt
         self.v0 = v0
@@ -49,12 +51,12 @@ class ProjectileMotion(object):
                 self.x_pos = self.x
                 self.y_pos = self.y
 
-        self.vx0 = self.v0 * math.cos(math.radians(self.angle))
-        self.vy = self.acceleration*self.t - self.v0*math.sin(math.radians(self.angle))
+        self.vx = self.v0 * math.cos(math.radians(self.angle))
+        self.vy = self.v0*math.sin(math.radians(self.angle)) - self.acceleration*self.t
 
         if self.space_key: # Projectile motion
             self.y = self.y_pos - (self.vy0*self.t) + ((.5*self.acceleration) * (self.t**2))
-            self.x = self.x_pos + self.vx0*self.t
+            self.x = self.x_pos + self.vx*self.t
             self.t += self.dt
             if self.y > self.GROUND_POSITION:
                 self.y = self.GROUND_POSITION

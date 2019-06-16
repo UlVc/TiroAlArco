@@ -31,7 +31,7 @@ player = Player.Player(data_characters[0]['walk_left'], data_characters[0]['walk
                        data_characters[0]['y'], data_characters[0]['width'], data_characters[0]['height'], data_characters[0]['force'], 
                        data_characters[0]['velocity'], data_characters[0]['image'], data_characters[0]['columns'], data_characters[0]['rows'])
 projectile = Projectile.Projectile('images/sprites/fire_ball.png', 8, 8)
-projectile_motion = pm.ProjectileMotion(0.0, 0.5, 25.0, 1.0, 45.0, 0, 0, GROUND_POSITION, 'sounds/arrow_release.wav')
+projectile_motion = pm.ProjectileMotion(screen, 0.0, 0.5, 25.0, 1.0, 45.0, 0, 0, GROUND_POSITION, 'sounds/arrow_release.wav')
 
 clock = pygame.time.Clock()
 
@@ -42,7 +42,7 @@ def redraw_screen():
         projectile.draw_guide(screen, (0, 0, 0), player.x, player.y, projectile_motion.angle, projectile_motion.v0)
 
     if projectile_motion.shoot:
-        projectile.draw(screen, projectile_motion.x, projectile_motion.y, projectile_motion.angle)
+        projectile.draw(screen, projectile_motion.x, projectile_motion.y, projectile_motion.angle, projectile_motion.vx, projectile_motion.vy)
 
     player.draw(screen)
     enemy.draw(screen)
