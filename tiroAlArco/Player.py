@@ -3,7 +3,7 @@ import pygame
 from Abstract import Abstract
 
 class Player(Abstract):
-    def __init__(self, walk_left, walk_right, idle, (x, y), width, force, velocity, image, columns, rows):
+    def __init__(self, walk_left, walk_right, idle, (x, y), width, force, velocity, image, columns, rows, hitbox):
         Abstract.__init__(self, walk_left, walk_right, (x, y), image, columns, rows)
         self.width = width
         self.idle = idle
@@ -14,6 +14,7 @@ class Player(Abstract):
         self.walk_count = 0
         self.is_jumping = False
         self.jump_count = 10
+        self.hitbox = hitbox
 
     def draw(self, screen, scale2x=False):
         sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows, scale2x)
@@ -29,6 +30,9 @@ class Player(Abstract):
             self.walk_count += 1
         else:
             sprite_sheet.draw(screen, self.idle, (self.x, self.y))
+
+        hitbox = (self.x + self.hitbox[0], self.y + self.hitbox[1], self.hitbox[2], self.hitbox[3]) # Rectangle used for hitbox
+        pygame.draw.rect(screen, (255, 0, 0), hitbox, 2)
 
     def move(self, keys, SCREEN_WIDTH):
         if keys[pygame.K_a] and self.x > self.velocity:

@@ -3,9 +3,10 @@ import SpriteSheet
 from Abstract import Abstract
 
 class Mob(Abstract):
-    def __init__(self, walk_left, walk_right, (x, y), image, columns, rows, end):
+    def __init__(self, walk_left, walk_right, (x, y), image, columns, rows, end, hitbox):
         Abstract.__init__(self, walk_left, walk_right, (x, y), image, columns, rows)
         self.end = end
+        self.hitbox = hitbox
         self.path = [x, self.end]
         self.walk_count = 0
         self.velocity = 3
@@ -24,6 +25,9 @@ class Mob(Abstract):
         else:
             sprite_sheet.draw(screen, self.walk_left[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
+
+        hitbox = (self.x + self.hitbox[0], self.y + self.hitbox[1], self.hitbox[2], self.hitbox[3]) # Rectangle used for hitbox
+        pygame.draw.rect(screen, (255, 0, 0), hitbox, 2)
 
     def move(self):
         if self.velocity > 0:

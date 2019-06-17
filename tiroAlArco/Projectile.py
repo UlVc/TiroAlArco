@@ -7,12 +7,17 @@ class Projectile(object):
         self.image = image
         self.columns = columns
         self.rows = rows
+        self.draw_projectile = True
 
-    def draw(self, screen, (x, y), angle, vx, vy):
+    def draw(self, screen, (x, y), angle, vx, vy, projectile_motion, enemy):
         x += 20
         sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows)
         intern_angle = math.atan2(vy, vx) * (180.0/math.pi)
-        
+
+        if projectile_motion.y + 25 >= enemy.y + enemy.hitbox[1] and projectile_motion.y + 25 <= (enemy.y+enemy.hitbox[1]) + enemy.hitbox[3]:
+            if projectile_motion.x + 25 >= enemy.hitbox[0] + enemy.x:
+                projectile_motion.restart_shoot()
+
         sprite_sheet.draw_rotated(screen, 32, (x, y), intern_angle)
 
     def draw_guide(self, screen, color, (x, y), ang, v0):

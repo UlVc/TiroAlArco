@@ -25,10 +25,10 @@ pygame.display.set_caption("Tiro al arco")
 bg = pygame.image.load('images/background/background.jpg')
 
 enemy = Mob.Mob(data_enemies[0]['walk_left'], data_enemies[0]['walk_right'], (data_enemies[0]['x'], data_enemies[0]['y']), 
-                data_enemies[0]['image'], data_enemies[0]['columns'], data_enemies[0]['rows'], data_enemies[0]['end'])
+                data_enemies[0]['image'], data_enemies[0]['columns'], data_enemies[0]['rows'], data_enemies[0]['end'], data_enemies[0]['hitbox'])
 player = Player.Player(data_characters[0]['walk_left'], data_characters[0]['walk_right'], data_characters[0]['idle'], (data_characters[0]['x'], 
-                       data_characters[0]['y']), data_characters[0]['width'], data_characters[0]['force'], 
-                       data_characters[0]['velocity'], data_characters[0]['image'], data_characters[0]['columns'], data_characters[0]['rows'])
+                       data_characters[0]['y']), data_characters[0]['width'], data_characters[0]['force'], data_characters[0]['velocity'], 
+                       data_characters[0]['image'], data_characters[0]['columns'], data_characters[0]['rows'], data_characters[0]['hitbox'])
 projectile = Projectile.Projectile('images/sprites/fire_ball.png', 8, 8)
 projectile_motion = ProjectileMotion.ProjectileMotion(screen, 0.0, 0.5, 25.0, 1.0, 45.0, 0, 0, GROUND_POSITION, 'sounds/arrow_release.wav')
 
@@ -41,11 +41,16 @@ def redraw_screen():
         projectile.draw_guide(screen, (0, 0, 0), (player.x, player.y), projectile_motion.angle, projectile_motion.v0)
 
     if projectile_motion.shoot:
-        projectile.draw(screen, (projectile_motion.x, projectile_motion.y), projectile_motion.angle, projectile_motion.vx, projectile_motion.vy)
+        projectile.draw(screen, (projectile_motion.x, projectile_motion.y), projectile_motion.angle, projectile_motion.vx, projectile_motion.vy, projectile_motion, enemy)
 
     player.draw(screen)
     enemy.draw(screen)
 
+    #if projectile_motion.y >= enemy.y:# and  projectile_motion.y > enemy.y + enemy.hitbox[1]: # Above the rectangle and below the top of the Rectangle
+     #   if projectile_motion.x > enemy.hitbox[0] + enemy.x and projectile_motion.x < enemy.x + enemy.hitbox[0] + enemy.hitbox[2]:
+      #      print('Hit')
+       #     projectile_motion.restart_shoot()
+    
     pygame.display.update()
 
 # Main loop

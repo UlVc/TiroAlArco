@@ -24,6 +24,13 @@ class ProjectileMotion(object):
         self.y_pos = 0
         self.shoot = False
 
+    def restart_shoot(self):
+        self.y = self.GROUND_POSITION
+        self.t = 0
+        self.space_key = False
+        self.lock_shoot = True
+        self.shoot = False
+
     def calculate_motion(self, keys, player):
         self.x = player.x
         self.y = player.y
