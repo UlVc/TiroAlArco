@@ -30,6 +30,7 @@ class Mob(Abstract):
 
             hitbox = (self.x + self.hitbox[0], self.y + self.hitbox[1], self.hitbox[2], self.hitbox[3])
             
+            # Health bars:
             pygame.draw.rect(screen, (255, 0, 0), (hitbox[0] + 12, hitbox[1] - 20, 60, 10))
             pygame.draw.rect(screen, (0, 128, 0), (hitbox[0] + 12, hitbox[1] - 20, 60 - ((60/10) * (10-self.health)), 10))
 

@@ -11,7 +11,7 @@ pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.mixer.init()
 pygame.init()
 
-with open('mobs_stats.json') as file_mobs, open('character_stats.json') as file_characters:
+with open('stats/mobs_stats.json') as file_mobs, open('stats/character_stats.json') as file_characters:
     data_enemies = json.load(file_mobs)
     data_characters = json.load(file_characters)
 
