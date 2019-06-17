@@ -10,24 +10,28 @@ class Mob(Abstract):
         self.path = [x, self.end]
         self.walk_count = 0
         self.velocity = 3
+        self.health = 10
 
     def draw(self, screen):
-        sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows, True)
+        if self.health > 0:
+            sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows, True)
 
-        self.move()
+            self.move()
 
-        if self.walk_count + 1 >= (len(self.walk_left))*3:
-            self.walk_count = 0
+            if self.walk_count + 1 >= (len(self.walk_left))*3:
+                self.walk_count = 0
 
-        if self.velocity > 0: 
-            sprite_sheet.draw(screen, self.walk_right[self.walk_count // 3], (self.x, self.y))
-            self.walk_count += 1
-        else:
-            sprite_sheet.draw(screen, self.walk_left[self.walk_count // 3], (self.x, self.y))
-            self.walk_count += 1
+            if self.velocity > 0: 
+                sprite_sheet.draw(screen, self.walk_right[self.walk_count // 3], (self.x, self.y))
+                self.walk_count += 1
+            else:
+                sprite_sheet.draw(screen, self.walk_left[self.walk_count // 3], (self.x, self.y))
+                self.walk_count += 1
 
-        hitbox = (self.x + self.hitbox[0], self.y + self.hitbox[1], self.hitbox[2], self.hitbox[3]) # Rectangle used for hitbox
-        pygame.draw.rect(screen, (255, 0, 0), hitbox, 2)
+            hitbox = (self.x + self.hitbox[0], self.y + self.hitbox[1], self.hitbox[2], self.hitbox[3]) # Rectangle used for hitbox
+            
+            pygame.draw.rect(screen, (255, 0, 0), (hitbox[0] + 12, hitbox[1] - 20, 60, 10))
+            pygame.draw.rect(screen, (0, 128, 0), (hitbox[0] + 12, hitbox[1] - 20, 60 - ((60/10) * (10-self.health)), 10))
 
     def move(self):
         if self.velocity > 0:
@@ -42,3 +46,6 @@ class Mob(Abstract):
             else:
                 self.velocity *= -1
                 self.walk_count = 0
+
+    def hit(self):
+        self.health -= 1

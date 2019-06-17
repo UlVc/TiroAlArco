@@ -31,8 +31,7 @@ class Player(Abstract):
         else:
             sprite_sheet.draw(screen, self.idle, (self.x, self.y))
 
-        hitbox = (self.x + self.hitbox[0], self.y + self.hitbox[1], self.hitbox[2], self.hitbox[3]) # Rectangle used for hitbox
-        pygame.draw.rect(screen, (255, 0, 0), hitbox, 2)
+        hitbox = (self.x + self.hitbox[0], self.y + self.hitbox[1], self.hitbox[2], self.hitbox[3])
 
     def move(self, keys, SCREEN_WIDTH):
         if keys[pygame.K_a] and self.x > self.velocity:
