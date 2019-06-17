@@ -28,7 +28,7 @@ class Mob(Abstract):
                 sprite_sheet.draw(screen, self.walk_left[self.walk_count // 3], (self.x, self.y))
                 self.walk_count += 1
 
-            hitbox = (self.x + self.hitbox[0], self.y + self.hitbox[1], self.hitbox[2], self.hitbox[3]) # Rectangle used for hitbox
+            hitbox = (self.x + self.hitbox[0], self.y + self.hitbox[1], self.hitbox[2], self.hitbox[3])
             
             pygame.draw.rect(screen, (255, 0, 0), (hitbox[0] + 12, hitbox[1] - 20, 60, 10))
             pygame.draw.rect(screen, (0, 128, 0), (hitbox[0] + 12, hitbox[1] - 20, 60 - ((60/10) * (10-self.health)), 10))
@@ -49,3 +49,6 @@ class Mob(Abstract):
 
     def hit(self):
         self.health -= 1
+
+        if self.health == 0:
+            self.hitbox = (0, 0, 0, 0)

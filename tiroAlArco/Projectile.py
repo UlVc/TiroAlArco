@@ -14,11 +14,9 @@ class Projectile(object):
         sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows)
         intern_angle = math.atan2(vy, vx) * (180.0/math.pi)
 
-        if enemy.health > 0:
-            if projectile_motion.y + 25 >= enemy.y + enemy.hitbox[1] and projectile_motion.y + 25 <= (enemy.y+enemy.hitbox[1]) + enemy.hitbox[3]:
-                if projectile_motion.x + 25 >= enemy.hitbox[0] + enemy.x and projectile_motion.x + 25 <= (enemy.x+enemy.hitbox[0]) + enemy.hitbox[2]:
-                    projectile_motion.restart_shoot()
-                    enemy.hit()
+        if pygame.Rect(enemy.hitbox[0] + enemy.x, enemy.hitbox[1] + enemy.y, enemy.hitbox[2], enemy.hitbox[3]).collidepoint(projectile_motion.x + 25, projectile_motion.y + 25):
+            projectile_motion.restart_shoot()
+            enemy.hit()
 
         sprite_sheet.draw_rotated(screen, 32, (x, y), intern_angle)
 

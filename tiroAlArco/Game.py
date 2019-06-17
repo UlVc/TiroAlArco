@@ -45,11 +45,6 @@ def redraw_screen():
 
     player.draw(screen)
     enemy.draw(screen)
-
-    #if projectile_motion.y >= enemy.y:# and  projectile_motion.y > enemy.y + enemy.hitbox[1]: # Above the rectangle and below the top of the Rectangle
-     #   if projectile_motion.x > enemy.hitbox[0] + enemy.x and projectile_motion.x < enemy.x + enemy.hitbox[0] + enemy.hitbox[2]:
-      #      print('Hit')
-       #     projectile_motion.restart_shoot()
     
     pygame.display.update()
 
