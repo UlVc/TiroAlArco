@@ -43,10 +43,21 @@ def redraw_screen():
     if projectile_motion.shoot:
         projectile.draw(screen, (projectile_motion.x, projectile_motion.y), projectile_motion.angle, projectile_motion.vx, projectile_motion.vy, projectile_motion, enemy)
 
+    if enemy.health > 0:
+        collision_enemy_character()
+         
     player.draw(screen)
     enemy.draw(screen)
-    
+
     pygame.display.update()
+
+def collision_enemy_character():
+    enemy_rect = pygame.Rect(enemy.hitbox[0] + enemy.x, enemy.hitbox[1] + enemy.y, enemy.hitbox[2], enemy.hitbox[3])
+    player_rect = pygame.Rect(player.hitbox[0] + player.x, player.hitbox[1] + player.y, player.hitbox[2], player.hitbox[3])
+    
+    if enemy_rect.colliderect(player_rect):
+        player.hit(screen)
+        enemy.restart_position()
 
 # Main loop
 while 1:

@@ -11,6 +11,8 @@ class Mob(Abstract):
         self.walk_count = 0
         self.velocity = 3
         self.health = 10
+        self.X = x
+        self.Y = y
 
     def draw(self, screen):
         if self.health > 0:
@@ -18,7 +20,7 @@ class Mob(Abstract):
 
             self.move()
 
-            if self.walk_count + 1 >= (len(self.walk_left))*3:
+            if self.walk_count + 1 >= len(self.walk_left) * 3:
                 self.walk_count = 0
 
             if self.velocity > 0: 
@@ -53,3 +55,7 @@ class Mob(Abstract):
 
         if self.health == 0:
             self.hitbox = (0, 0, 0, 0)
+
+    def restart_position(self):
+        self.x = self.X
+        self.y = self.Y

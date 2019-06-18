@@ -1,5 +1,6 @@
 import SpriteSheet
 import pygame
+import math
 from Abstract import Abstract
 
 class Player(Abstract):
@@ -15,6 +16,9 @@ class Player(Abstract):
         self.is_jumping = False
         self.jump_count = 10
         self.hitbox = hitbox
+        self.health = 10
+        self.X = self.x
+        self.Y = self.y
 
     def draw(self, screen, scale2x=False):
         sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows, scale2x)
@@ -32,6 +36,8 @@ class Player(Abstract):
             sprite_sheet.draw(screen, self.idle, (self.x, self.y))
 
         hitbox = (self.x + self.hitbox[0], self.y + self.hitbox[1], self.hitbox[2], self.hitbox[3])
+        pygame.draw.rect(screen, (255, 0, 0), (hitbox[0] + 3, hitbox[1] - 20, 60, 10))
+        pygame.draw.rect(screen, (0, 128, 0), (hitbox[0] + 3, hitbox[1] - 20, 60 - ((60/10) * (10-self.health)), 10))
 
     def move(self, keys, SCREEN_WIDTH):
         if keys[pygame.K_a] and self.x > self.velocity:
@@ -52,14 +58,29 @@ class Player(Abstract):
                 self.is_jumping = True
                 self.right = False
                 self.left = False
-                self.walkCount = 0
+                self.walk_count = 0
         else:
             if self.jump_count >= -10:
-                neg = 1
-                if self.jump_count < 0:
-                    neg = -1
-                self.y -= (self.jump_count ** 2) * 0.5 * neg
+                neg = -1 if self.jump_count < 0 else 1
+
+                self.y -= (self.jump_count**2) * (0.5*neg)
                 self.jump_count -= 1
             else:
                 self.is_jumping = False
                 self.jump_count = 10
+
+    def hit(self, screen):
+        self.x = self.X
+        self.y = self.Y
+        self.health -= 1
+        self.jump_count = 10
+        self.is_jumping = False
+
+        if self.health == 0:
+            font1 = pygame.font.SysFont('comicsans', 100)
+            text = font1.render('You lose!', 1, (255, 0, 0))
+
+            screen.blit(text, (800, 400))
+            pygame.display.update()
+            pygame.time.delay(700)
+            exit()
