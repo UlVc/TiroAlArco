@@ -3,22 +3,26 @@ import SpriteSheet
 import math
 
 class Projectile(object):
-    def __init__(self, image, columns, rows):
-        self.image = image
+    def __init__(self, sprite, columns, rows, image, projectile_animation=[]):
+        self.sprite = sprite
         self.columns = columns
         self.rows = rows
         self.draw_projectile = True
-        self.projectile_animation = 32
+        self.image = image
+        self.projectile_animation = projectile_animation
+        self.count = -1
 
     def draw(self, screen, (x, y), angle, vx, vy, projectile_motion, enemy):
         x += 20
-        sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows)
+        sprite_sheet = SpriteSheet.SpriteSheet(self.sprite, self.columns, self.rows)
         intern_angle = math.atan2(vy, vx) * (180.0/math.pi)
+        animation = self.projectile_animation != []
 
-        if self.projectile_animation < 39:
-            self.projectile_animation += 1
-        else:
-            self.projectile_animation = 32
+        if animation:
+            if self.count < len(self.projectile_animation) - 1:
+                self.count += 1
+            else:
+                self.count = 0
 
         enemy_rect = pygame.Rect(enemy.hitbox[0] + enemy.x, enemy.hitbox[1] + enemy.y, enemy.hitbox[2], enemy.hitbox[3])
 
@@ -26,7 +30,10 @@ class Projectile(object):
             projectile_motion.restart_shoot()
             enemy.hit()
 
-        sprite_sheet.draw_rotated(screen, (x, y), intern_angle, self.projectile_animation)
+        if animation:
+            sprite_sheet.draw_rotated(screen, (x, y), intern_angle, self.projectile_animation[self.count])
+        else:
+            sprite_sheet.draw_rotated(screen, (x, y), intern_angle, self.image)
 
     def draw_guide(self, screen, color, (x, y), ang, v0):
         x += 30

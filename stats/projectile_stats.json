@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Arrow",
+    "animations": [0, 1, 2],
+    "hitbox": [22, 11, 62, 93],
+    "image": "images/sprites/arrow.png",
+    "columns": 3,
+    "rows": 1,
+    "sound": "sounds/arrow_release.wav"
+  },
+  {
+    "name": "FireBall",
+    "animations": [32, 33, 34, 35, 36, 37, 38],
+    "hitbox": [22, 11, 62, 93],
+    "image": "images/sprites/fire_ball.png",
+    "columns": 8,
+    "rows": 8,
+    "sound": "sounds/fire_ball_release.wav"
+  }
+]

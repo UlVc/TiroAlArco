@@ -6,14 +6,17 @@ import Player
 import Projectile
 import ProjectileMotion
 import Mob
+import button
 
 pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.mixer.init()
 pygame.init()
 
-with open('stats/mobs_stats.json') as file_mobs, open('stats/character_stats.json') as file_characters:
+with open('stats/mobs_stats.json') as file_mobs, open('stats/character_stats.json') as file_characters, \
+     open('stats/projectile_stats.json') as file_projectile:
     data_enemies = json.load(file_mobs)
     data_characters = json.load(file_characters)
+    data_projectile = json.load(file_projectile)
 
 SCREEN_WIDTH = 1920
 SCREEN_HEIGHT = 1080
@@ -26,11 +29,11 @@ bg = pygame.image.load('images/background/background.jpg')
 
 enemy = Mob.Mob(data_enemies[0]['walk_left'], data_enemies[0]['walk_right'], (data_enemies[0]['x'], data_enemies[0]['y']), 
                 data_enemies[0]['image'], data_enemies[0]['columns'], data_enemies[0]['rows'], data_enemies[0]['end'], data_enemies[0]['hitbox'])
-player = Player.Player(data_characters[0]['walk_left'], data_characters[0]['walk_right'], data_characters[0]['idle'], (data_characters[0]['x'], 
-                       data_characters[0]['y']), data_characters[0]['width'], data_characters[0]['force'], data_characters[0]['velocity'], 
-                       data_characters[0]['image'], data_characters[0]['columns'], data_characters[0]['rows'], data_characters[0]['hitbox'])
-projectile = Projectile.Projectile('images/sprites/fire_ball.png', 8, 8)
-projectile_motion = ProjectileMotion.ProjectileMotion(screen, 0.0, 0.5, 25.0, 1.0, 45.0, 0, 0, GROUND_POSITION, 'sounds/arrow_release.wav')
+player = Player.Player(data_characters[1]['walk_left'], data_characters[1]['walk_right'], data_characters[1]['idle'], (data_characters[1]['x'], 
+                       data_characters[1]['y']), data_characters[1]['width'], data_characters[1]['force'], data_characters[1]['velocity'], 
+                       data_characters[1]['image'], data_characters[1]['columns'], data_characters[1]['rows'], data_characters[1]['hitbox'])
+projectile = Projectile.Projectile(data_projectile[0]['image'], data_projectile[0]['columns'], data_projectile[0]['rows'], 0, data_projectile[0]['animations'])
+projectile_motion = ProjectileMotion.ProjectileMotion(screen, 0.0, 0.5, 25.0, 1.0, 45.0, 0, 0, GROUND_POSITION, data_projectile[0]['sound'])
 
 clock = pygame.time.Clock()
 
@@ -46,7 +49,7 @@ def redraw_screen():
     if enemy.health > 0:
         collision_enemy_character()
          
-    player.draw(screen)
+    player.draw(screen, True)
     enemy.draw(screen)
 
     pygame.display.update()
