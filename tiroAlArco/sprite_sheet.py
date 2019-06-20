@@ -9,13 +9,13 @@ class SpriteSheet(object):
             
         self.columns = columns
         self.rows = rows
-        self.totalCellCount = columns * rows
+        self.total_cell_count = columns * rows
         self.rect = self.sheet.get_rect()
 
         width = self.cell_width = self.rect.width / columns
         height = self.cell_height = self.rect.height / rows
 
-        self.cells = list([(index % columns*width, index / columns*height, width, height) for index in range(self.totalCellCount)])
+        self.cells = list([(index % columns*width, index / columns*height, width, height) for index in range(self.total_cell_count)])
 
     def draw(self, surface, cell_index, (x, y)):
         sub_surface = self.sheet.subsurface(self.cells[cell_index])
