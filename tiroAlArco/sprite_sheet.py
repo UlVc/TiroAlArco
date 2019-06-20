@@ -12,8 +12,8 @@ class SpriteSheet(object):
         self.totalCellCount = columns * rows
         self.rect = self.sheet.get_rect()
 
-        width = self.cellWidth = self.rect.width / columns
-        height = self.cellHeight = self.rect.height / rows
+        width = self.cell_width = self.rect.width / columns
+        height = self.cell_height = self.rect.height / rows
 
         self.cells = list([(index % columns*width, index / columns*height, width, height) for index in range(self.totalCellCount)])
 
