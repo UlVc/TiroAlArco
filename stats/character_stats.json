@@ -11,6 +11,7 @@
     "force": 100,
     "velocity": 5,
     "image": "images/sprites/Saitama.png",
+    "scale": "False",
     "columns": 3,
     "rows": 4
   },
@@ -26,6 +27,7 @@
     "force": 200,
     "velocity": 10,
     "image": "images/sprites/Goku.png",
+    "scale": "True",
     "columns": 18,
     "rows": 6
   }

@@ -20,7 +20,7 @@ class Player(Abstract):
         self.X = self.x
         self.Y = self.y
 
-    def draw(self, screen, scale2x=False):
+    def draw(self, screen, scale2x):
         frame = sprite_sheet.SpriteSheet(self.image, self.columns, self.rows, scale2x)
 
         if self.walk_count + 1 >= (len(self.walk_left)*2) + 1:
