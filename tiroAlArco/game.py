@@ -2,18 +2,10 @@
 
 import pygame
 import json
-<<<<<<< HEAD:tiroAlArco/game.py
 import player
 import projectile
 import projectile_motion
 import mob
-=======
-import Player
-import Projectile
-import ProjectileMotion
-import Mob
-
->>>>>>> fde8fba837753efc1ef3651707b59721252795bb:tiroAlArco/Game.py
 
 pygame.mixer.pre_init(44100, -16, 2, 2048)
 pygame.mixer.init()
@@ -36,10 +28,13 @@ bg = pygame.image.load('images/background/background.jpg')
 
 enemy = mob.Mob(data_enemies[0]['walk_left'], data_enemies[0]['walk_right'], (data_enemies[0]['x'], data_enemies[0]['y']), 
                 data_enemies[0]['image'], data_enemies[0]['columns'], data_enemies[0]['rows'], data_enemies[0]['end'], data_enemies[0]['hitbox'])
+
 player = player.Player(data_characters[0]['walk_left'], data_characters[0]['walk_right'], data_characters[0]['idle'], (data_characters[0]['x'], 
                        data_characters[0]['y']), data_characters[0]['width'], data_characters[0]['force'], data_characters[0]['velocity'], 
                        data_characters[0]['image'], data_characters[0]['columns'], data_characters[0]['rows'], data_characters[0]['hitbox'])
+
 projectile = projectile.Projectile(data_projectile[1]['image'], data_projectile[1]['columns'], data_projectile[1]['rows'], 1, data_projectile[1]['animations'])
+
 projectile_motion = projectile_motion.ProjectileMotion(screen, 0.0, 0.5, 25.0, 1.0, 45.0, 0, 0, GROUND_POSITION, data_projectile[1]['sound'])
 
 clock = pygame.time.Clock()
@@ -69,7 +64,6 @@ def collision_enemy_character():
         player.hit(screen)
         enemy.restart_position()
 
-# Main loop
 while 1:
     clock.tick(27)
 
