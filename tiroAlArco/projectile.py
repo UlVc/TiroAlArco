@@ -1,5 +1,5 @@
 import pygame
-import SpriteSheet
+import sprite_sheet
 import math
 
 class Projectile(object):
@@ -14,7 +14,7 @@ class Projectile(object):
 
     def draw(self, screen, (x, y), angle, vx, vy, projectile_motion, enemy):
         x += 20
-        sprite_sheet = SpriteSheet.SpriteSheet(self.sprite, self.columns, self.rows)
+        frame = sprite_sheet.SpriteSheet(self.sprite, self.columns, self.rows)
         intern_angle = math.atan2(vy, vx) * (180.0/math.pi)
         animation = self.projectile_animation != []
 
@@ -31,9 +31,9 @@ class Projectile(object):
             enemy.hit()
 
         if animation:
-            sprite_sheet.draw_rotated(screen, (x, y), intern_angle, self.projectile_animation[self.count])
+            frame.draw_rotated(screen, (x, y), intern_angle, self.projectile_animation[self.count])
         else:
-            sprite_sheet.draw_rotated(screen, (x, y), intern_angle, self.image)
+            frame.draw_rotated(screen, (x, y), intern_angle, self.image)
 
     def draw_guide(self, screen, color, (x, y), ang, v0):
         x += 30

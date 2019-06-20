@@ -1,7 +1,7 @@
 import pygame
-import Projectile
-import Player
-import SpriteSheet
+import projectile
+import player
+import sprite_sheet
 import math
 
 class ProjectileMotion(object):

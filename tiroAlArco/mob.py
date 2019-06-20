@@ -1,6 +1,6 @@
 import pygame
-import SpriteSheet
-from Abstract import Abstract
+import sprite_sheet
+from abstract import Abstract
 
 class Mob(Abstract):
     def __init__(self, walk_left, walk_right, (x, y), image, columns, rows, end, hitbox):
@@ -16,7 +16,7 @@ class Mob(Abstract):
 
     def draw(self, screen):
         if self.health > 0:
-            sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows, True)
+            frame = sprite_sheet.SpriteSheet(self.image, self.columns, self.rows, True)
 
             self.move()
 
@@ -24,10 +24,10 @@ class Mob(Abstract):
                 self.walk_count = 0
 
             if self.velocity > 0: 
-                sprite_sheet.draw(screen, self.walk_right[self.walk_count // 3], (self.x, self.y))
+                frame.draw(screen, self.walk_right[self.walk_count // 3], (self.x, self.y))
                 self.walk_count += 1
             else:
-                sprite_sheet.draw(screen, self.walk_left[self.walk_count // 3], (self.x, self.y))
+                frame.draw(screen, self.walk_left[self.walk_count // 3], (self.x, self.y))
                 self.walk_count += 1
 
             hitbox = (self.x + self.hitbox[0], self.y + self.hitbox[1], self.hitbox[2], self.hitbox[3])

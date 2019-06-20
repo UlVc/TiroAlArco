@@ -1,7 +1,7 @@
-import SpriteSheet
+import sprite_sheet
 import pygame
 import math
-from Abstract import Abstract
+from abstract import Abstract
 
 class Player(Abstract):
     def __init__(self, walk_left, walk_right, idle, (x, y), width, force, velocity, image, columns, rows, hitbox):
@@ -21,19 +21,19 @@ class Player(Abstract):
         self.Y = self.y
 
     def draw(self, screen, scale2x=False):
-        sprite_sheet = SpriteSheet.SpriteSheet(self.image, self.columns, self.rows, scale2x)
+        frame = sprite_sheet.SpriteSheet(self.image, self.columns, self.rows, scale2x)
 
         if self.walk_count + 1 >= (len(self.walk_left)*2) + 1:
             self.walk_count = 0
             
         if self.left:
-            sprite_sheet.draw(screen, self.walk_left[self.walk_count // 3], (self.x, self.y))
+            frame.draw(screen, self.walk_left[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
         elif self.right:
-            sprite_sheet.draw(screen, self.walk_right[self.walk_count // 3], (self.x, self.y))
+            frame.draw(screen, self.walk_right[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
         else:
-            sprite_sheet.draw(screen, self.idle, (self.x, self.y))
+            frame.draw(screen, self.idle, (self.x, self.y))
 
         hitbox = (self.x + self.hitbox[0], self.y + self.hitbox[1], self.hitbox[2], self.hitbox[3])
         pygame.draw.rect(screen, (255, 0, 0), (hitbox[0] + 3, hitbox[1] - 20, 60, 10))
