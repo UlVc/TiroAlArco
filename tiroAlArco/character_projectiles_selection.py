@@ -17,18 +17,21 @@ class CharacterProjectilesSelection(object):
         character_selection_text = myfont.render('Choose your character:', True, (0, 0, 0))
         projectile_selection_text = myfont.render('Choose your projectile:', True, (0, 0, 0))
 
-        SCREEN_WIDTH = 400
-        SCREEN_HEIGHT = 500
-        bg = pygame.image.load('images/background/background.jpg')
+        SCREEN_WIDTH = 350
+        SCREEN_HEIGHT = 420
+        bg = pygame.image.load('images/background/background_submenu.jpg')
 
-        saitama = pygame.Rect(100, 150, 64, 64)
-        goku = pygame.Rect(180, 150, 64, 64)
+        saitama = pygame.Rect(102, 140, 66, 96)
+        goku = pygame.Rect(180, 150, 62, 69)
 
-        arrow = pygame.Rect(100, 345, 64, 64)
-        fire_ball = pygame.Rect(180, 345, 64, 64)
+        arrow = pygame.Rect(50, 365, 117, 20)
+        fire_ball = pygame.Rect(192, 363, 54, 20)
 
         saitama_image = ss.SpriteSheet('images/sprites/Saitama.png', 3, 4)
         goku_image = ss.SpriteSheet('images/sprites/Goku.png', 18, 6)
+
+        arrow_image = ss.SpriteSheet('images/sprites/arrow.png', 3, 1)
+        fire_image = ss.SpriteSheet('images/sprites/fire_ball.png', 8, 8)
 
         pygame.display.set_caption('Character selection')
         screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -45,13 +48,13 @@ class CharacterProjectilesSelection(object):
 
             screen.blit(character_selection_text, (40, 75))
 
-            pygame.draw.rect(screen, (255, 255, 255), saitama)
+            # pygame.draw.rect(screen, (255, 255, 255), saitama)
             saitama_image.draw(screen, 1, (80, 130))
 
             if pygame.mouse.get_pressed()[0] and saitama.collidepoint(pygame.mouse.get_pos()):
                 self.character_index = 0
 
-            pygame.draw.rect(screen, (255, 255, 255), goku)
+            # pygame.draw.rect(screen, (255, 255, 255), goku)
             goku_image.draw(screen, 27, (160, 130))
 
             if pygame.mouse.get_pressed()[0] and goku.collidepoint(pygame.mouse.get_pos()):
@@ -59,12 +62,14 @@ class CharacterProjectilesSelection(object):
 
             screen.blit(projectile_selection_text, (40, 270))
 
-            pygame.draw.rect(screen, (255, 255, 255), arrow)
-
+            # pygame.draw.rect(screen, (255, 255, 255), arrow)
+            arrow_image.draw(screen, 1 , (50, 360))
+            
             if pygame.mouse.get_pressed()[0] and arrow.collidepoint(pygame.mouse.get_pos()):
                 self.projectile_index = 0
 
-            pygame.draw.rect(screen, (255, 255, 255), fire_ball)
+            # pygame.draw.rect(screen, (255, 255, 255), fire_ball)
+            fire_image.draw(screen,1 , (190, 343))
 
             if pygame.mouse.get_pressed()[0] and fire_ball.collidepoint(pygame.mouse.get_pos()):
                 self.projectile_index = 1
