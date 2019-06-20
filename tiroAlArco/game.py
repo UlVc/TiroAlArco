@@ -10,8 +10,7 @@ import character_projectiles_selection as cps
 
 character_projectile_index = cps.CharacterProjectilesSelection()
 
-character_projectile_index.character_selection()
-character_projectile_index.projectile_selection()
+character_projectile_index.start()
 
 character_index = character_projectile_index.character_index
 projectile_index = character_projectile_index.projectile_index
