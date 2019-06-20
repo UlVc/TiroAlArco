@@ -8,5 +8,5 @@ Coded with Python
 You must be in the TiroAlArco directory, and then execute the following command:
 
 ```
-python tiroAlArco/Game.py
+python tiroAlArco/game.py
 ```
